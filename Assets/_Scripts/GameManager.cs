@@ -10,9 +10,9 @@ public class GameManager : MonoBehaviour {
 	public GameObject ceiling,floor;
 	public float LitSqSpwnInter,BigSqSpwnInter,patternedBlocksSpwnInter, BIGGERSqSpwnInter;
 	private float littleSquareTimer,bigSquareTimer,patternedTimer, BIGGERSquareTimer;
-	public List<GameObject> LittleSquareList = new List<GameObject>();
-	public List<GameObject> BigSquareList = new List<GameObject>();
-	public List<GameObject> BIGGERSquareList = new List<GameObject>();
+	private List<GameObject> LittleSquareList = new List<GameObject>();
+	private List<GameObject> BigSquareList = new List<GameObject>();
+	private List<GameObject> BIGGERSquareList = new List<GameObject>();
 	public float squareSpeedAmount;
 	public float maxSpeedAmount;
 	public float LS_minSpawnTime,BS_minSpawnTime;
@@ -65,27 +65,27 @@ public class GameManager : MonoBehaviour {
 		if (!gameIsPaused) {
 			if (littleSquareTimer > LitSqSpwnInter) {
 				littleSquareTimer = 0;
-				LittleSquareList.Add ((GameObject)Instantiate (LittleSquare, new Vector3 (SpawnLocationObject.transform.position.x, Random.Range (floor.transform.position.y+0.5f, ceiling.transform.position.y-0.5f), 0), Quaternion.identity));
+				LittleSquareList.Add ((GameObject)Instantiate (LittleSquare, new Vector3 (SpawnLocationObject.transform.position.x, Random.Range (floor.transform.position.y, ceiling.transform.position.y), 0), Quaternion.identity));
 				LittleSquareList [LittleSquareList.Count - 1].GetComponent<littleSquareScript> ().speed = squareSpeedAmount;
 				//Instantiate(LittleSquare, new Vector3(SpawnLocationObject.transform.position.x, Random.Range(floor.transform.position.y,ceiling.transform.position.y), 0), Quaternion.identity);
 			}
 			if (bigSquareTimer > BigSqSpwnInter) {
 				bigSquareTimer = 0;
-				BigSquareList.Add ((GameObject)Instantiate (BigSquare, new Vector3 (SpawnLocationObject.transform.position.x, Random.Range (floor.transform.position.y+0.5f, ceiling.transform.position.y-0.5f), 0), Quaternion.identity));
+				BigSquareList.Add ((GameObject)Instantiate (BigSquare, new Vector3 (SpawnLocationObject.transform.position.x, Random.Range (floor.transform.position.y, ceiling.transform.position.y), 0), Quaternion.identity));
 				BigSquareList [BigSquareList.Count - 1].GetComponent<bigSquareScript> ().speed = squareSpeedAmount;
 				//Instantiate(BigSquare, new Vector3(SpawnLocationObject.transform.position.x, Random.Range(floor.transform.position.y,ceiling.transform.position.y), 0), Quaternion.identity);
 
 			}
 			if (BIGGERSquareTimer > BIGGERSqSpwnInter) {
 				BIGGERSquareTimer = 0;
-				BIGGERSquareList.Add ((GameObject)Instantiate (BIGGERSquare, new Vector3 (SpawnLocationObject.transform.position.x, Random.Range (floor.transform.position.y+0.5f, ceiling.transform.position.y-0.5f), 0), Quaternion.identity));
+				BIGGERSquareList.Add ((GameObject)Instantiate (BIGGERSquare, new Vector3 (SpawnLocationObject.transform.position.x, Random.Range (floor.transform.position.y, ceiling.transform.position.y), 0), Quaternion.identity));
 				BIGGERSquareList [BIGGERSquareList.Count - 1].GetComponent<bigSquareScript> ().speed = squareSpeedAmount;
 				//Instantiate(BigSquare, new Vector3(SpawnLocationObject.transform.position.x, Random.Range(floor.transform.position.y,ceiling.transform.position.y), 0), Quaternion.identity);
 
 			}
 			if (patternedTimer > patternedBlocksSpwnInter) {
 				patternedTimer = 0;
-				GameObject obj = (GameObject)Instantiate (patternedBlocks [Random.Range (0, patternedBlocks.Length)], new Vector3 (SpawnLocationObject.transform.position.x, Random.Range (floor.transform.position.y+0.5f, ceiling.transform.position.y-0.5f), 0), Quaternion.identity);
+				GameObject obj = (GameObject)Instantiate (patternedBlocks [Random.Range (0, patternedBlocks.Length)], new Vector3 (SpawnLocationObject.transform.position.x, Random.Range (floor.transform.position.y, ceiling.transform.position.y), 0), Quaternion.identity);
 				obj.GetComponent<littleSquareScript> ().speed = squareSpeedAmount;
 			}
 		}
@@ -226,9 +226,11 @@ public class GameManager : MonoBehaviour {
 		}
 		for (int i = 0; i < BigSquareList.Count; i++) {
 			BigSquareList [i].GetComponent<bigSquareScript> ().speed = 0;
+			BigSquareList [i].GetComponent<RotateAsteroidScript> ().stopRotation ();
 		}
 		for (int i = 0; i < BIGGERSquareList.Count; i++) {
 			BIGGERSquareList [i].GetComponent<bigSquareScript> ().speed = 0;
+			BIGGERSquareList [i].GetComponent<RotateAsteroidScript> ().stopRotation ();
 		}
 		StartCoroutine ("Warp");
 	}

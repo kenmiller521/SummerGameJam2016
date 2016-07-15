@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class ReturnToMainMenuScript : MonoBehaviour {
 
 	// Use this for initialization
@@ -10,6 +10,13 @@ public class ReturnToMainMenuScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space)) {
+			SceneManager.LoadScene ("MainMenu");
+		}
+	}
+
+	public void returnToMainMenu()
+	{
+		SceneManager.LoadScene ("MainMenu");
 	}
 }

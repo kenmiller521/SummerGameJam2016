@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
 	void Update () 
 	{
 		transform.position = new Vector3 (transform.position.x + speedModifier * speedScale, transform.position.y, transform.position.z);
-		if (Input.GetKey (KeyCode.W)) 
+		if (Input.GetKey (KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) 
 		{		
 			if (transform.position.y < ceiling.transform.position.y) 
 			{	
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
 
 		}
 
-		if (Input.GetKey (KeyCode.S)) 
+		if (Input.GetKey (KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) 
 		{		
 			if (transform.position.y > floor.transform.position.y) 
 			{	

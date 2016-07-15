@@ -7,8 +7,10 @@ public class RotateAsteroidScript : MonoBehaviour {
 	private Vector3 rotationVec;
 	private bool rotateClockwise;
 	private int temp;
+	private bool isRotating;
 	// Use this for initialization
 	void Start () {
+		isRotating = true;
 		rotateSpeed = Random.Range (minRotateSpeed, maxRotateSpeed);
 		if ((int)Random.Range (0,2) == 0)
 			rotateClockwise = true;
@@ -18,9 +20,19 @@ public class RotateAsteroidScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(!rotateClockwise)
-			transform.Rotate (Vector3.forward * Time.deltaTime*rotateSpeed, Space.World);
-		else
-			transform.Rotate (Vector3.back * Time.deltaTime*rotateSpeed, Space.World);
+		if (isRotating) {
+			if (!rotateClockwise)
+				transform.Rotate (Vector3.forward * Time.deltaTime * rotateSpeed, Space.World);
+			else
+				transform.Rotate (Vector3.back * Time.deltaTime * rotateSpeed, Space.World);
+		}
+	}
+	public void stopRotation()
+	{
+		isRotating = false;
+	}
+	public void startRotation()
+	{
+		isRotating = true;
 	}
 }
